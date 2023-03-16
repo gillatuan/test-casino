@@ -1,24 +1,43 @@
 import { Col, Form, Input, notification, Row } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useLogin } from '@/api/user'
+import { useMutation } from 'react-query'
+
+import { usePostData } from '@/api/common'
 
 const LoginPage = () => {
   const router = useRouter()
 
-  const useMutation = useLogin()
+  const mutation = useMutation(
+    'login',
+    async (data: URLSearchParams) =>
+      await usePostData('/token', data, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        }
+      })
+  )
   const [form] = Form.useForm()
   const [api, contextHolder] = notification.useNotification()
 
   const handleLogin = async () => {
     let userData = {
       username: form.getFieldValue('username'),
-      name: form.getFieldValue('name'),
       password: form.getFieldValue('password'),
-      userRole: undefined
+      client_id: process.env.CLIENT_ID || 'oO8BMTesSg9Vl3_jAyKpbOd2fIEa',
+      client_secret: process.env.CLIENT_SECRET || '0Exp4dwqmpON_ezyhfm0o_Xkowka',
+      grant_type: process.env.GRANT_TYPE || 'password',
+      scope: process.env.SCOPE || 'openid'
     }
+    const formData = new URLSearchParams()
+    formData.append('username', form.getFieldValue('username'))
+    formData.append('password', form.getFieldValue('password'))
+    formData.append('client_id', userData.client_id)
+    formData.append('client_secret', userData.client_secret)
+    formData.append('grant_type', userData.grant_type)
+    formData.append('scope', userData.scope)
 
-    const resp = await useMutation.mutateAsync(userData)
+    const resp = await mutation.mutateAsync(formData)
 
     if (resp.status === 400) {
       return api['error']({
@@ -26,17 +45,23 @@ const LoginPage = () => {
         description: resp.data?.message
       })
     }
+    if (resp.status === 415) {
+      return api['error']({
+        message: `Error ${resp.status}`,
+        description: 'Login Incorrectly'
+      })
+    }
 
-    if (resp.data) {
+    if (resp.status === 200) {
       api['success']({
         message: `Success`,
         description: `Login successfully`
       })
 
-      localStorage.setItem('token', resp.data.data.user.token)
+      localStorage.setItem('access_token', resp.data.access_token)
+      localStorage.setItem('expires_in', resp.data.expires_in)
+      localStorage.setItem('id_token', resp.data.id_token)
       localStorage.setItem('username', userData.username)
-      localStorage.setItem('userRole', resp.data.data.user.userRole || '')
-      localStorage.setItem('isOnboard', resp.data.data.user.isOnboard || 'false')
 
       router.push('/')
     }
