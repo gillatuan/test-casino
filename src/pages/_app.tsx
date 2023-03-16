@@ -1,10 +1,11 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { StrictMode } from 'react'
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
 import store from '@/redux'
+
+import '@/styles/globals.css'
 
 const queryCache = new QueryCache()
 const queryClient = new QueryClient({
