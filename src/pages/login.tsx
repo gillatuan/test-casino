@@ -4,6 +4,9 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 
 import { usePostData } from '@/api/common'
+import { withCheckRoleOnboard } from '@/hoc/withCheckRoleOnboard'
+import styles from '@/styles/Login.module.scss'
+import { MyButtonMemoize } from '@/components/MyButton'
 
 const LoginPage = () => {
   const router = useRouter()
@@ -68,60 +71,63 @@ const LoginPage = () => {
   }
 
   return (
-    <Row>
-      <Col md={10}>
-        <div className='flex flex-col justify-between items-center px-10 h-screen py-5 bg-gradient-to-b from-[#0A3636]  to-[#236B58]'></div>
-      </Col>
-      <Col md={14}>
-        <div className='flex items-center justify-center h-screen'>
-          <div className='w-[420px]'>
-            <h1 className='text-[34px] leading-[34px] font-bold mb-0'>Welcome back to</h1>
-            <p className='text-gray-primary text-[13px] mb-8 mt-3 font-bold'>
-              Didn’t have account yet? <Link href='/signup'>Sign up</Link>
-            </p>
-            <Form form={form} className='mt-8 app-form'>
-              <Form.Item
-                name='username'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your username!'
-                  },
-                  {
-                    type: 'email',
-                    message: 'Please input a valid username!'
-                  }
-                ]}
-              >
-                <Input className='app-input' placeholder='username' />
-              </Form.Item>
-              <Form.Item
-                name='password'
-                className='mb-2'
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your password!'
-                  },
-                  {
-                    min: 6,
-                    message: 'Password must be at least 6 characters!'
-                  }
-                ]}
-              >
-                <Input.Password className='app-input' placeholder='Password' />
-              </Form.Item>
-              <button className='w-full mt-6 app-button black' onClick={handleLogin}>
-                <span className='ml-2'>Log in</span>
-              </button>
-            </Form>
-            <div className='border-b-2 border-dashed border-[#D2D1D4] mt-5' />
-          </div>
-        </div>
-      </Col>
-      {contextHolder}
-    </Row>
+    <div className={styles['login-page']}>
+      <div className={styles['login-box']}>
+        <Row>
+          <Col md={10}>
+            <div className={styles['illustration-wrapper']}>
+              <img
+                src='https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700'
+                alt='Login'
+              />
+            </div>
+          </Col>
+          <Col md={14}>
+            <div className='flex items-center justify-center h-screen'>
+              <Form form={form} id={styles['login-form']}>
+                <p className={styles['form-title']}>Welcome back</p>
+                <p>Login to the Dashboard</p>
+                <Form.Item
+                  name='username'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your username!'
+                    },
+                    {
+                      type: 'email',
+                      message: 'Please input a valid username!'
+                    }
+                  ]}
+                >
+                  <Input className='app-input' placeholder='username' />
+                </Form.Item>
+                <Form.Item
+                  name='password'
+                  className='mb-2'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!'
+                    },
+                    {
+                      min: 6,
+                      message: 'Password must be at least 6 characters!'
+                    }
+                  ]}
+                >
+                  <Input.Password className='app-input' placeholder='Password' />
+                </Form.Item>
+                <MyButtonMemoize type='primary' label='Login' handleClick={handleLogin} />
+              </Form>
+              <div className='border-b-2 border-dashed border-[#D2D1D4] mt-5' />
+            </div>
+          </Col>
+          {contextHolder}
+        </Row>
+      </div>
+    </div>
   )
 }
 
-export default LoginPage
+export default withCheckRoleOnboard(LoginPage)
