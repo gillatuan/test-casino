@@ -25,11 +25,9 @@ const Invoices = () => {
           return (
             <div className='flex items-center'>
               {/* <Image src={CompanyLogo} alt='company-logo' width={60} height={60} /> */}
-              <div className='ml-5'>
-                <p className='font-bold text-[14px] text-[#1D1929]'>{record.customer.name}</p>
-                <div className='flex items-center mt-1'>
-                  <span className='text-dark-gray text-[11px] font-[600]'>{record.customer.addresses}</span>
-                </div>
+              <p className='font-bold text-[14px] text-[#1D1929]'>{record.customer.name}</p>
+              <div className='flex items-center mt-1'>
+                <span className='text-dark-gray text-[11px] font-[600]'>{record.customer.addresses}</span>
               </div>
             </div>
           )
