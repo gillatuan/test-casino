@@ -9,7 +9,7 @@ import { parseObjectToStringUrl } from '@/utils/general'
 import { Col, Row } from 'antd'
 import { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
-import { FormInvoice } from './FormInvoice'
+import { FormInvoice } from '@/modules/FormInvoice/FormInvoice'
 
 const Dashboard = () => {
   const [searchFilter, setSearchFilter] = useState<ISearchFilter>(Default_Search_Filter_Data)
