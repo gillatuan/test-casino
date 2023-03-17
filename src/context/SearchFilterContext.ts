@@ -7,7 +7,6 @@ type TSearchFilterContext = {
   isLoading?: boolean
   isError?: boolean
   searchFilter: ISearchFilter
-  totalItem?: number
   setSearchFilter: (data: ISearchFilter) => void
 }
 export const SearchFilterContext = createContext<TSearchFilterContext>({
@@ -15,6 +14,5 @@ export const SearchFilterContext = createContext<TSearchFilterContext>({
   isLoading: undefined,
   isError: undefined,
   searchFilter: Default_Search_Filter_Data,
-  totalItem: undefined,
   setSearchFilter: (data: ISearchFilter) => {}
 })

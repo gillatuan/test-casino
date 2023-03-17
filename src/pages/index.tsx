@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 
 import { usePostData } from '@/api/common'
-import { withCheckRoleOnboard } from '@/hoc/withCheckRoleOnboard'
+import { withCheckRole } from '@/hoc/withCheckRole'
 import styles from '@/styles/Login.module.scss'
 import { MyButtonMemoize } from '@/components/MyButton'
 
@@ -66,7 +66,7 @@ const LoginPage = () => {
       localStorage.setItem('id_token', resp.data.id_token)
       localStorage.setItem('username', userData.username)
 
-      router.push('/')
+      router.push('/dashboard')
     }
   }
 
@@ -130,4 +130,4 @@ const LoginPage = () => {
   )
 }
 
-export default withCheckRoleOnboard(LoginPage)
+export default withCheckRole(LoginPage)

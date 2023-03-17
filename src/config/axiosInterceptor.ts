@@ -12,9 +12,6 @@ const onRequest = (config: InternalAxiosRequestConfig) => {
   }
 
   if (token) {
-    console.log('====================================')
-    console.log('token', token)
-    console.log('====================================')
     config.headers.Authorization = `Bearer ${token}`
   }
 
@@ -34,7 +31,6 @@ const onResponseError = (error: AxiosError) => {
     store.dispatch(logout())
     window.location.href = '/'
   }
-  console.log('error.response', error)
   return onRequestError(error)
 }
 

@@ -25,7 +25,7 @@ export const MyFilter = () => {
   }
 
   return (
-    <>
+    <div className='flex gap-[20px]'>
       <MyInput
         inputStyle='app-input custom'
         name='keyword'
@@ -34,6 +34,6 @@ export const MyFilter = () => {
         onChange={(val) => handleFilter('keyword', val)}
       />
       <MyRangePicker onChange={(dates) => handleDateRange(dates[0], dates[1])} />
-    </>
+    </div>
   )
 }
