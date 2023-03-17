@@ -37,7 +37,7 @@ export const FormInvoice = () => {
   }, [dataInvoice.itemReference, dataInvoice.quantity])
 
   const buttonCls = useMemo(() => {
-    let cls = 'w-full app-button custom !text-white'
+    let cls = 'w-full app-button custom'
     if (disabled) {
       cls += ' disabled !text-black'
     }
