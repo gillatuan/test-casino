@@ -75,6 +75,12 @@ a {
   text-decoration: none;
 }
 
+.btn-transparent {
+  background: #fff;
+  border: 1px solid #d2d1d4;
+  border-radius: 12px;
+  color: black;
+}
 .app-input {
   background: #ffffff;
   padding: 20px 16px;
@@ -125,6 +131,30 @@ textarea.app-input {
   border-radius: 8px;
   padding: 10px 16px;
   width: 250px;
+}
+
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+  background-color: #1bd2a4;
+  border-radius: 6px;
+  border: 1px solid #1bd2a4;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 90px;
+}
+.app-button.btn-transparent {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: #000;
 }
 
 @media (prefers-color-scheme: dark) {

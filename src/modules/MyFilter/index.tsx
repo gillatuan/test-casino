@@ -7,21 +7,29 @@ import { SearchFilterContext } from '@/context/SearchFilterContext'
 
 import SearchIcon from '/public/icons/search.svg'
 import { MyRangePicker } from '@/components/MyRangePicker'
+import { MyButtonMemoize } from '@/components/MyButton'
+import { parseDate } from '@/utils/general'
 
 export const MyFilter = () => {
-  const { searchFilter, setSearchFilter } = useContext(SearchFilterContext)
+  const { searchFilter, toggleDrawer, setSearchFilter, setToggleDrawer } = useContext(SearchFilterContext)
 
   const handleFilter = (name: string, val: any) => {
-    if (val === 0 || (typeof val === 'object' && val.length === 0)) {
-      val = undefined
-    }
     setSearchFilter({
       ...searchFilter,
       [name]: val
     })
   }
   const handleDateRange = (from: Date, to: Date) => {
-    debugger
+    const parseFrom = parseDate(from)
+    const parseTo = parseDate(to)
+    setSearchFilter({
+      ...searchFilter,
+      fromDate: parseFrom,
+      toDate: parseTo
+    })
+  }
+  const handleCreateItem = () => {
+    setToggleDrawer(!toggleDrawer)
   }
 
   return (
@@ -34,6 +42,11 @@ export const MyFilter = () => {
         onChange={(val) => handleFilter('keyword', val)}
       />
       <MyRangePicker onChange={(dates) => handleDateRange(dates[0], dates[1])} />
+      <MyButtonMemoize
+        className='app-button btn-transparent'
+        label='Create new Invoice'
+        handleClick={handleCreateItem}
+      />
     </div>
   )
 }

@@ -1,9 +1,9 @@
 export interface ISearchFilter {
-  fromDate?: Date
-  keyword?: string
+  fromDate?: string | ''
+  keyword?: string | ''
   pageNumber?: number
   payType?: string[]
   pageSize?: number
-  toDate?: Date
+  toDate?: string | ''
   totalRecords: number | 0
 }

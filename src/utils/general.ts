@@ -59,3 +59,10 @@ export const parseObjectToStringUrl = (params: any) => {
 
   return getParamSearch.join('&')
 }
+
+export const parseDate = (d: Date) => {
+  const date = new Date(d)
+  const dateString = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split('T')[0]
+
+  return dateString
+}

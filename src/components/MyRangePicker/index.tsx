@@ -1,9 +1,10 @@
 import { DatePicker, Space } from 'antd'
+import { memo } from 'react'
 import { IMyRangePicker, RangeValue } from './types'
 
 const { RangePicker } = DatePicker
 
-export const MyRangePicker = (props: IMyRangePicker) => {
+const MyRangePickerMomoize = (props: IMyRangePicker) => {
   const { name, onChange } = props
   return (
     <>
@@ -14,3 +15,5 @@ export const MyRangePicker = (props: IMyRangePicker) => {
     </>
   )
 }
+
+export const MyRangePicker = memo(MyRangePickerMomoize)

@@ -15,7 +15,8 @@ const HeaderLogo = () => {
     useGetData(`/membership-service/1.2.0/users/me`, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
-      }
+      },
+      signal
     })
   )
 

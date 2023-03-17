@@ -1,24 +1,21 @@
-import { Input } from 'antd'
-import { memo } from 'react'
-import { IMyInput } from './types'
+import { Input } from 'antd';
+import { IMyTextarea } from './types';
 
-const MyInputMemoize = (props: IMyInput) => {
+const { TextArea } = Input;
+
+export const MyTextarea = (props: IMyTextarea) => {
   const {
-    addonAfter,
-    addonBefore,
     className,
     inputStyle,
     label,
     labelStyle,
+    maxLength,
     name,
     placeholder,
-    prefix,
     required = false,
-    suffix,
-    type = 'text',
-    value,
+    rows = 4,
     onChange
-  } = props
+  } = props;
 
   return (
     <div className={className}>
@@ -28,20 +25,14 @@ const MyInputMemoize = (props: IMyInput) => {
           {required && <span className='required'> *</span>}
         </p>
       )}
-      <Input
-        addonAfter={addonAfter}
-        addonBefore={addonBefore}
+      <TextArea
         className={inputStyle}
+        maxLength={maxLength}
         name={name}
         placeholder={placeholder}
-        prefix={prefix}
-        suffix={suffix}
-        type={type}
-        value={value}
+        rows={rows}
         onChange={(e) => onChange(e.currentTarget.value)}
       />
     </div>
-  )
-}
-
-export const MyInput = memo(MyInputMemoize)
+  );
+};
