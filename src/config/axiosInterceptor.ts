@@ -1,8 +1,5 @@
 import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-import store from 'src/redux'
-import { logout } from 'src/redux/user.slice'
-
 const onRequest = (config: InternalAxiosRequestConfig) => {
   config.baseURL = process.env.API_SERVICE
 
@@ -28,7 +25,6 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 
 const onResponseError = (error: AxiosError) => {
   if (error.response && error.response.status === 403) {
-    store.dispatch(logout())
     window.location.href = '/'
   }
   return onRequestError(error)

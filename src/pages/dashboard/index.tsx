@@ -1,15 +1,14 @@
 import { useGetData } from '@/api/common'
 import { Default_Search_Filter_Data } from '@/constants/general'
 import { SearchFilterContext } from '@/context/SearchFilterContext'
-import AuthenticatedLayout from '@/layouts/Authenticated'
-import Invoices from '@/modules/Invoices'
-import { MyFilter } from '@/modules/MyFilter'
+import MainLayout from '@/layouts'
+import Header from '@/layouts/Header'
+import Games from '@/modules/Games'
 import { ISearchFilter } from '@/types/search.type'
 import { parseObjectToStringUrl } from '@/utils/general'
 import { Col, Row } from 'antd'
 import { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
-import { FormInvoice } from '@/modules/FormInvoice/FormInvoice'
 
 const Dashboard = () => {
   const [searchFilter, setSearchFilter] = useState<ISearchFilter>(Default_Search_Filter_Data)
@@ -22,32 +21,22 @@ const Dashboard = () => {
   }
 
   const paramUrl = parseObjectToStringUrl(searchFilter)
-  const { isLoading, isError, data, error } = useQuery(
-    `me-${searchFilter.keyword}-${searchFilter.pageNumber}-${searchFilter.fromDate}-${searchFilter.toDate}`,
-    ({ signal }) =>
-      useGetData(
-        `/invoice-service/1.0.0/invoices?dateType=INVOICE_DATE&sortBy=CREATED_DATE&ordering=ASCENDING&${paramUrl}`,
-        {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'org-token': orgToken
-          },
-          signal
-        }
-      )
+  const { isLoading, isError, data, error } = useQuery(`data-category-${searchFilter.categories}`, ({ signal }) =>
+    useGetData(`http://stage.whgstage.com/front-end-test/games.php?${paramUrl}`, {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      signal
+    })
   )
 
   const items = useMemo(() => {
-    if (data?.status === 200) {
-      setSearchFilter({
-        ...searchFilter,
-        totalRecords: data.data.paging.totalRecords
-      })
-      return data.data.data
+    if (data && data.status === 200) {
+      return data.data
     }
 
     return []
-  }, [data, searchFilter.pageNumber])
+  }, [data])
 
   const value = {
     data: items,
@@ -60,21 +49,20 @@ const Dashboard = () => {
   }
 
   return (
-    <AuthenticatedLayout>
+    <MainLayout>
       <SearchFilterContext.Provider value={value}>
-        <Row gutter={40}>
+        <Row>
           <Col md={24}>
-            <MyFilter />
+            <Header />
           </Col>
         </Row>
-        <Row gutter={40}>
+        <Row gutter={20}>
           <Col md={24}>
-            <Invoices />
+            <Games />
           </Col>
         </Row>
-        <FormInvoice />
       </SearchFilterContext.Provider>
-    </AuthenticatedLayout>
+    </MainLayout>
   )
 }
 

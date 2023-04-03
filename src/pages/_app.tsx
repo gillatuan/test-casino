@@ -1,9 +1,6 @@
 import type { AppProps } from 'next/app'
 import { StrictMode } from 'react'
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query'
-import { Provider } from 'react-redux'
-
-import store from '@/redux'
 
 import '@/styles/globals.css'
 
@@ -24,9 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
+        <Component {...pageProps} />
       </QueryClientProvider>
     </StrictMode>
   )

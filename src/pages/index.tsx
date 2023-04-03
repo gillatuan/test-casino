@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 
 import { usePostData } from '@/api/common'
-import { withCheckRole } from '@/hoc/withCheckRole'
 import styles from '@/styles/Login.module.scss'
 import { MyButtonMemoize } from '@/components/MyButton'
 
@@ -130,4 +129,4 @@ const LoginPage = () => {
   )
 }
 
-export default withCheckRole(LoginPage)
+export default LoginPage

@@ -157,6 +157,38 @@ textarea.app-input {
   color: #000;
 }
 
+.menus {
+  background-color: #373737;
+  display: flex;
+  flex: 1 0 100%;
+  justify-content: space-between;
+}
+.menu-item {
+  cursor: pointer;
+  padding: 10px 40px;
+}
+.menu-item p {
+  color: #fff;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.menu-item.active {
+  background-color: #8dc63f;
+}
+
+.result-container {
+  column-gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.image-container {
+  border-radius: 10px;
+  height: 150px;
+  margin-top: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

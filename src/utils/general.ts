@@ -1,5 +1,4 @@
 import { NextRouter } from 'next/router'
-import { Role } from 'src/types/user.type'
 
 export const byteConverter = (bytes: number, only: string, decimals: number | 0) => {
   const K_UNIT = 1024
