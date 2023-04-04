@@ -13,7 +13,7 @@ import { useQuery } from 'react-query'
 const Dashboard = () => {
   const [searchFilter, setSearchFilter] = useState<ISearchFilter>(Default_Search_Filter_Data)
 
-  let orgToken: string | null
+  let orgToken: string | null = null
   if (typeof window !== 'undefined') {
     orgToken = window.localStorage.getItem('org_token')
   }
