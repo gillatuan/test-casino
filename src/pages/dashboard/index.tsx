@@ -8,12 +8,10 @@ import { ISearchFilter } from '@/types/search.type'
 import { parseObjectToStringUrl } from '@/utils/general'
 import { Col, Row } from 'antd'
 import { useEffect, useMemo, useState } from 'react'
-import { useQueries, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 
 const Dashboard = () => {
   const [searchFilter, setSearchFilter] = useState<ISearchFilter>(Default_Search_Filter_Data)
-
-  const [toggleDrawer, setToggleDrawer] = useState<boolean>(false)
 
   let orgToken: string | null
   if (typeof window !== 'undefined') {
@@ -64,9 +62,7 @@ const Dashboard = () => {
     isError: categoryData.isError,
     jackpotData,
     searchFilter,
-    toggleDrawer,
-    setSearchFilter,
-    setToggleDrawer
+    setSearchFilter
   }
 
   return (
