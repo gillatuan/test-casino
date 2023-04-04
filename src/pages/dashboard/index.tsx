@@ -7,7 +7,7 @@ import Games from '@/modules/Games'
 import { ISearchFilter } from '@/types/search.type'
 import { parseObjectToStringUrl } from '@/utils/general'
 import { Col, Row } from 'antd'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useQueries, useQuery } from 'react-query'
 
 const Dashboard = () => {
@@ -29,14 +29,26 @@ const Dashboard = () => {
       signal
     })
   )
-  const jackpotData = useQuery(`data-jackpot`, ({ signal }) =>
-    useGetData(`http://stage.whgstage.com/front-end-test/jackpots.php`, {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      signal
-    })
+  const jackpotData = useQuery(
+    `data-jackpot`,
+    ({ signal }) =>
+      useGetData(`http://stage.whgstage.com/front-end-test/jackpots.php`, {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        signal
+      }),
+    {
+      refetchInterval: 3000
+    }
   )
+  useEffect(() => {
+    const intervalCall = setInterval(() => jackpotData, 3000)
+    return () => {
+      // clean up
+      clearInterval(intervalCall)
+    }
+  }, [])
 
   const items = useMemo(() => {
     if (categoryData.data && categoryData.data.status === 200) {
