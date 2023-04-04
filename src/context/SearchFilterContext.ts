@@ -4,6 +4,7 @@ import { ISearchFilter } from '@/types/search.type'
 
 type TSearchFilterContext = {
   data?: any
+  jackpotData?: any
   isLoading?: boolean
   isError?: boolean
   searchFilter: ISearchFilter
@@ -13,6 +14,7 @@ type TSearchFilterContext = {
 }
 export const SearchFilterContext = createContext<TSearchFilterContext>({
   data: undefined,
+  jackpotData: undefined,
   isLoading: undefined,
   isError: undefined,
   searchFilter: Default_Search_Filter_Data,

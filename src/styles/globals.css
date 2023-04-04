@@ -188,6 +188,23 @@ textarea.app-input {
   overflow: hidden;
   position: relative;
 }
+.image-container .jackpot {
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.image-container .jackpot span {
+  color: #fff;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
 
 @media (prefers-color-scheme: dark) {
   html {

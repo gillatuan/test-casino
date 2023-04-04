@@ -8,7 +8,7 @@ import { ISearchFilter } from '@/types/search.type'
 import { parseObjectToStringUrl } from '@/utils/general'
 import { Col, Row } from 'antd'
 import { useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQueries, useQuery } from 'react-query'
 
 const Dashboard = () => {
   const [searchFilter, setSearchFilter] = useState<ISearchFilter>(Default_Search_Filter_Data)
@@ -21,8 +21,16 @@ const Dashboard = () => {
   }
 
   const paramUrl = parseObjectToStringUrl(searchFilter)
-  const { isLoading, isError, data, error } = useQuery(`data-category-${searchFilter.categories}`, ({ signal }) =>
+  const categoryData = useQuery(`data-category`, ({ signal }) =>
     useGetData(`http://stage.whgstage.com/front-end-test/games.php?${paramUrl}`, {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      signal
+    })
+  )
+  const jackpotData = useQuery(`data-jackpot`, ({ signal }) =>
+    useGetData(`http://stage.whgstage.com/front-end-test/jackpots.php`, {
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
       },
@@ -31,17 +39,18 @@ const Dashboard = () => {
   )
 
   const items = useMemo(() => {
-    if (data && data.status === 200) {
-      return data.data
+    if (categoryData.data && categoryData.data.status === 200) {
+      return categoryData.data.data
     }
 
     return []
-  }, [data])
+  }, [categoryData.data])
 
   const value = {
     data: items,
-    isLoading,
-    isError,
+    isLoading: categoryData.isLoading,
+    isError: categoryData.isError,
+    jackpotData,
     searchFilter,
     toggleDrawer,
     setSearchFilter,
