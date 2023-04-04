@@ -1,5 +1,5 @@
 {
-  "extends": ["next/babel", "plugin:@next/next/recommended", "prettier"],
+  "extends": ["plugin:@next/next/recommended", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": [
